@@ -1,11 +1,33 @@
 blueprint:
-  name: Sunricher SR-ZG2836D5-Pro Remote Control Button Trigger
-  description: Button event trigger for Sunricher SR-ZG2836D5-Pro remote control
+  name: SR-ZG2836D5 Button Trigger
+  description: >-
+    Create button-triggered automations for Sunricher SR-ZG2836D5-Pro remote control.
+
+    **Features:**
+    * Supports all 5 buttons: top left/right, bottom left/right, and center
+    * 4 press types: short press, double press, hold, and release
+    * Flexible automation actions for each button/press combination
+
+    **Use Cases:**
+    * Control lights and scenes
+    * Trigger custom automations
+    * Manage media playback
+    * And more...
+
+    **Note:** This blueprint requires Zigbee2MQTT integration.
   domain: automation
   input:
     remote:
-      name: Remote Control Topic
-      description: Enter the MQTT topic of your Sunricher remote control
+      name: MQTT Topic
+      description: >-
+        Enter the remote control's MQTT topic.
+
+        **Where to find the topic:**
+        1. Open your Zigbee2MQTT interface
+        2. Locate your remote control device
+        3. The topic format is typically: `zigbee2mqtt/<friendly_name>`
+
+        *The friendly_name is shown in Zigbee2MQTT when you first pair the device.*
     button:
       name: Button
       description: Select the button to monitor
