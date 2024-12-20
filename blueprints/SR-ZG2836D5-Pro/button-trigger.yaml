@@ -1,6 +1,6 @@
 blueprint:
   name: SR-ZG2836D5 Button Trigger
-  description: >-
+  description: |
     Create button-triggered automations for Sunricher SR-ZG2836D5-Pro remote control.  
     
     **Features:**  
@@ -19,7 +19,7 @@ blueprint:
   input:
     remote:
       name: MQTT Topic
-      description: >-
+      description: |
         Enter the remote control's MQTT topic.  
         
         **Where to find the topic:**  

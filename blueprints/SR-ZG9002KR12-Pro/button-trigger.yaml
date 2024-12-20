@@ -1,6 +1,6 @@
 blueprint:
   name: SR-ZG9002KR12 Button Trigger
-  description: >-
+  description: |
     Create button-triggered automations for Sunricher SR-ZG9002KR12-Pro remote control.  
     
     **Features:**  
@@ -19,7 +19,7 @@ blueprint:
   input:
     remote:
       name: MQTT Topic
-      description: >-
+      description: |
         Enter the remote control's MQTT topic.  
         
         **Where to find the topic:**  
