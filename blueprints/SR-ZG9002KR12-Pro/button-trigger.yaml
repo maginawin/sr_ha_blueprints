@@ -1,0 +1,57 @@
+blueprint:
+  name: Sunricher SR-ZG9002KR12-Pro Remote Control Button Trigger
+  description: Button event trigger for Sunricher SR-ZG9002KR12-Pro remote control
+  domain: automation
+  input:
+    remote:
+      name: Remote Control Topic
+      description: Enter the MQTT topic of your Sunricher remote control
+    button:
+      name: Button
+      description: Select the button to monitor
+      selector:
+        select:
+          options:
+            - "k1"
+            - "k2"
+            - "k3"
+            - "k4"
+            - "k5"
+            - "k6"
+            - "k7"
+            - "k8"
+            - "k9"
+            - "k10"
+            - "k11"
+            - "k12"
+            - "knob"
+    press_type:
+      name: Press Type
+      description: Select the button trigger type
+      selector:
+        select:
+          options:
+            - "short_press"
+            - "double_press" 
+            - "hold"
+            - "hold_released"
+    user_action:
+      name: Custom Action
+      description: Please select the action to execute
+      selector:
+        action: {}
+
+variables:
+  press_type: !input press_type
+  button: !input button
+  remote: !input remote
+
+trigger:
+  - trigger: mqtt
+    topic: !input remote
+
+condition:
+  - "{{ press_type == trigger.payload_json.action }}"
+  - "{{ button in trigger.payload_json.action_buttons }}"
+
+action: !input user_action

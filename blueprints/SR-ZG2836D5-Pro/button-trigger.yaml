@@ -1,0 +1,49 @@
+blueprint:
+  name: Sunricher SR-ZG2836D5-Pro Remote Control Button Trigger
+  description: Button event trigger for Sunricher SR-ZG2836D5-Pro remote control
+  domain: automation
+  input:
+    remote:
+      name: Remote Control Topic
+      description: Enter the MQTT topic of your Sunricher remote control
+    button:
+      name: Button
+      description: Select the button to monitor
+      selector:
+        select:
+          options:
+            - top_left
+            - top_right
+            - bottom_left
+            - bottom_right
+            - center
+          custom_value: false
+          multiple: false
+    press_type:
+      name: Press Type
+      description: Select the button trigger type
+      selector:
+        select:
+          options:
+            - short_press
+            - double_press
+            - hold
+            - hold_released
+          custom_value: false
+          multiple: false
+    user_action:
+      name: Custom Action
+      description: Please select the action to execute
+      selector:
+        action: {}
+variables:
+  press_type: !input press_type
+  button: !input button
+  remote: !input remote
+trigger:
+  - trigger: mqtt
+    topic: !input remote
+condition:
+  - "{{ press_type == trigger.payload_json.action }}"
+  - "{{ button in trigger.payload_json.action_buttons }}"
+action: !input user_action
