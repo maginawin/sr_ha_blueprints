@@ -1,0 +1,82 @@
+blueprint:
+  name: SR-ZG9002K16 Button Trigger
+  description: |
+    Create button-triggered automations for Sunricher SR-ZG9002K16-Pro remote control.  
+    
+    **Features:**  
+    * Supports all 16 buttons (K1-K16) 
+    * 4 press types: short press, double press, hold, and release  
+    * Flexible automation actions for each button/press combination  
+    
+    **Use Cases:**  
+    * Control lights and scenes  
+    * Trigger custom automations  
+    * Manage media playback  
+    * And more...  
+    
+    **Note:** This blueprint requires Zigbee2MQTT integration.
+  domain: automation
+  input:
+    remote:
+      name: MQTT Topic
+      description: |
+        Enter the remote control's MQTT topic.  
+        
+        **Where to find the topic:**  
+        1. Open your Zigbee2MQTT interface  
+        2. Locate your remote control device  
+        3. The topic format is typically: `zigbee2mqtt/<friendly_name>`  
+        
+        *The friendly_name is shown in Zigbee2MQTT when you first pair the device.*
+    button:
+      name: Button
+      description: Select the button to monitor
+      selector:
+        select:
+          options:
+            - "k1"
+            - "k2"
+            - "k3"
+            - "k4"
+            - "k5"
+            - "k6"
+            - "k7"
+            - "k8"
+            - "k9"
+            - "k10"
+            - "k11"
+            - "k12"
+            - "k13"
+            - "k14"
+            - "k15"
+            - "k16"
+    press_type:
+      name: Press Type
+      description: Select the button trigger type
+      selector:
+        select:
+          options:
+            - "short_press"
+            - "double_press" 
+            - "hold"
+            - "hold_released"
+    user_action:
+      name: Custom Action
+      description: Please select the action to execute
+      selector:
+        action: {}
+
+variables:
+  press_type: !input press_type
+  button: !input button
+  remote: !input remote
+
+trigger:
+  - trigger: mqtt
+    topic: !input remote
+
+condition:
+  - "{{ press_type == trigger.payload_json.action }}"
+  - "{{ button in trigger.payload_json.action_buttons }}"
+
+action: !input user_action
